@@ -25,7 +25,7 @@ And I still want us.`;
 
 function showLetter() {
   const music = document.getElementById("bgMusic");
-  music.currentTime = 222;
+  music.currentTime = 217;
   music.volume = 0;
   
   music.play().then(() => {
