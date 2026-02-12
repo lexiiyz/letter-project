@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Georgia", serif;
   background: #1e1e2f;
@@ -10,10 +11,122 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+/* Background Animation */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #2e003e; /* Base: Full Purple */
   overflow: hidden;
 }
+
+/* Pulsing Red Overlay */
+.background::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150vmax;
+  height: 150vmax;
+  background: radial-gradient(circle, rgba(142, 14, 0, 0.8) 0%, transparent 70%); /* Red glow */
+  opacity: 0;
+  animation: pulse-red 8s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+  0% {
+    opacity: 0; /* Full Purple */
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    opacity: 0.6; /* Turn red a little */
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0; /* Back to purple */
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  bottom: -50px;
+  background: rgba(255, 255, 255, 0.239);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float 10s linear infinite;
+}
+
+.particle-heart {
+  position: absolute;
+  bottom: -50px;
+  background-color: rgba(255, 105, 180, 0.2);
+  transform: rotate(-45deg);
+  opacity: 0;
+  animation: float-heart 10s linear infinite;
+}
+
+.particle-heart::before,
+.particle-heart::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: inherit;
+}
+
+.particle-heart::before {
+  top: -50%;
+  left: 0;
+}
+
+.particle-heart::after {
+  top: 0;
+  left: 50%;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes float-heart {
+  0% {
+    transform: translateY(0) rotate(-45deg) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(-45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Intro Text */
 .intro {
   text-align: center;
   font-size: 1.4rem;
@@ -21,6 +134,7 @@ body {
   opacity: 1;
   transition: opacity 1s ease;
 }
+
 .btn {
   padding: 10px 20px;
   font-size: 1rem;
@@ -31,9 +145,12 @@ body {
   color: rgb(5, 2, 2);
   transition: 0.3s;
 }
+
 .btn:hover {
   background: #b1acad;
 }
+
+/* Letter Styling */
 .letter {
   display: none;
   background: repeating-linear-gradient(
@@ -47,7 +164,7 @@ body {
   border-radius: 10px;
   width: 80%;
   max-width: 500px;
-  height: 600px;
+  min-height: 300px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   font-size: 1.1rem;
   line-height: 1.6;
@@ -56,12 +173,14 @@ body {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   font-family: "Courier New", monospace;
-  overflow: visible;
+  padding-bottom: 80px; /* Space for flowers/signature */
 }
+
 .letter p {
-  margin-top: -55px;
+  margin-top: -55px; /* Adjust based on background lines */
   overflow: hidden;
 }
+
 .letter::before {
   content: "";
   position: absolute;
@@ -75,6 +194,7 @@ body {
   background-position: center;
   pointer-events: none;
 }
+
 .signature {
   position: absolute;
   bottom: -20px;
@@ -84,3 +204,44 @@ body {
   pointer-events: none;
   transform: rotate(-2deg);
 }
+
+/* Credits */
+.credits {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  font-size: 0.8rem;
+  opacity: 0.5;
+  z-index: 10;
+  transition: opacity 1s ease;
+}
+
+.credits a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px dotted #fff;
+  transition: 0.3s;
+}
+
+.credits a:hover {
+  opacity: 1;
+  border-bottom: 1px solid #fff;
+}
+
+/* Flower Frame Styles (Iframe) */
+.flower-frame {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  border: none;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 2s ease;
+}
+
+/* Utility */
+/* .not-loaded * rule removed to allow background animation */

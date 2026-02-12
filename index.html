@@ -6,7 +6,8 @@
     <title>A Letter for You</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="not-loaded">
+    <div class="background"></div>
     <div class="intro" id="introText">
       i hope you read this, even if it's too late.
     </div>
@@ -14,7 +15,18 @@
 
     <div class="letter" id="letterBox">
       <p id="typedText"></p>
+      
       <img src="ttd.png" alt="Signature" class="signature" />
+    </div>
+
+    <iframe src="flower.html" class="flower-frame"></iframe>
+
+    <audio id="bgMusic" loop>
+      <source src="Apocalypse.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="credits">
+      <p>Shoutout <a href="https://github.com/miss-syntax/letter-project" target="_blank">Miss Syntax</a></p>
     </div>
 
     <script src="script.js"></script>
